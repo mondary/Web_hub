@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genspark Fan to Grid</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+        body {
+            background-color: #ffffff;
+            color: #111;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            min-height: 200vh; /* To allow scrolling */
+        }
+
+        /* --- Header / Context --- */
+        .header-spacer {
+            height: 40vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+
+        .header-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .search-bar {
+            width: 600px;
+            height: 60px;
+            background: #f3f4f6;
+            border-radius: 30px;
+            margin-bottom: 40px;
+        }
+
+        .pour-vous-badge {
+            background: #f3f4f6;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #1f2937;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- Animation Container --- */
+        .cards-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 800px; /* Space for grid */
+            /* border: 1px dashed #ccc; */
+        }
+
+        .card {
+            position: absolute;
+            width: 260px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+            transform-origin: center bottom;
+            will-change: transform, left, top;
+        }
+
+        .card-img {
+            height: 160px;
+            background-color: #e5e7eb;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .ai-pod-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            backdrop-filter: blur(4px);
+        }
+
+        .card-content {
+            padding: 16px;
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.4;
+            color: #111;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* --- IMAGES (Simulated) --- */
+        .card:nth-child(1) .card-img { background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&auto=format&fit=crop&q=60'); }
+        .card:nth-child(2) .card-img { background-image: url('https://images.unsplash.com/photo-1542281286-9e0a16bb7366?w=500&auto=format&fit=crop&q=60'); }
+        .card:nth-child(3) .card-img { background-image: url('https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=500&auto=format&fit=crop&q=60'); }
+        .card:nth-child(4) .card-img { background-image: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&auto=format&fit=crop&q=60'); }
+        .card:nth-child(5) .card-img { background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=60'); }
+        .card:nth-child(6) .card-img { background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60'); }
+        .card:nth-child(7) .card-img { background-image: url('https://images.unsplash.com/photo-1554151228-14d9def656ec?w=500&auto=format&fit=crop&q=60'); }
+        .card:nth-child(8) .card-img { background-image: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=60'); }
+
+
+        /* --- STATE: FAN (Initial) --- */
+        body:not(.scrolled) .card {
+            /* All cards start roughly center bottom */
+            left: 50%; 
+            top: 100px; /* Relative to container */
+            box-shadow: 0 20px 40px -5px rgba(0,0,0,0.3);
+        }
+        
+        body:not(.scrolled) .card-content {
+            opacity: 0; /* Hide text in fan mode to match image 1 slightly better, or keep it if preferred */
+            height: 0;
+            padding: 0;
+        }
+        
+        /* Fan Distribution logic */
+        /* Center is index 4-5 roughly (out of 8) */
+        
+        body:not(.scrolled) .card:nth-child(1) { transform: translate(-350%, 80px) rotate(-30deg); z-index: 1; }
+        body:not(.scrolled) .card:nth-child(2) { transform: translate(-250%, 40px) rotate(-20deg); z-index: 2; }
+        body:not(.scrolled) .card:nth-child(3) { transform: translate(-150%, 15px) rotate(-10deg); z-index: 3; }
+        body:not(.scrolled) .card:nth-child(4) { transform: translate(-50%, 0px)   rotate(0deg);   z-index: 4; scale: 1.1; } /* Center card pops up */
+        body:not(.scrolled) .card:nth-child(5) { transform: translate(50%, 15px)   rotate(10deg);  z-index: 3; }
+        body:not(.scrolled) .card:nth-child(6) { transform: translate(150%, 40px)  rotate(20deg);  z-index: 2; }
+        body:not(.scrolled) .card:nth-child(7) { transform: translate(250%, 80px)  rotate(30deg);  z-index: 1; }
+        body:not(.scrolled) .card:nth-child(8) { transform: translate(350%, 120px) rotate(40deg);  z-index: 0; opacity: 0; } /* Hidden extra */
+
+
+        /* --- STATE: GRID (Scrolled) --- */
+        body.scrolled .cards-container {
+            /* No special change to container, but cards move */
+        }
+
+        body.scrolled .card {
+            transform: rotate(0deg) scale(1) translate(0, 0) !important; /* Reset rotation/scale */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            /* Positions will be set via CSS nth-child for the grid layout */
+        }
+        
+        body.scrolled .card-content {
+            opacity: 1;
+            height: auto;
+            padding: 16px;
+        }
+
+        /* 
+           Grid Calculation: 
+           Container width ~1200px. 
+           Card width 260px. Gap ~30px.
+           4 Columns roughly.
+        */
+
+        /* Row 1 */
+        body.scrolled .card:nth-child(1) { left: 0px; top: 0px; }
+        body.scrolled .card:nth-child(2) { left: 300px; top: 0px; }
+        body.scrolled .card:nth-child(3) { left: 600px; top: 0px; }
+        body.scrolled .card:nth-child(4) { left: 900px; top: 0px; }
+
+        /* Row 2 */
+        body.scrolled .card:nth-child(5) { left: 0px; top: 380px; }
+        body.scrolled .card:nth-child(6) { left: 300px; top: 380px; }
+        body.scrolled .card:nth-child(7) { left: 600px; top: 380px; }
+        body.scrolled .card:nth-child(8) { left: 900px; top: 380px; }
+
+        /* Scroll Instruction */
+        .scroll-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #888;
+            font-size: 14px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+            40% {transform: translateX(-50%) translateY(-10px);}
+            60% {transform: translateX(-50%) translateY(-5px);}
+        }
+
+    </style>
+</head>
+<body onclick="toggleScrollState()"> <!-- Click anywhere to toggle for testing -->
+
+    <div class="header-spacer">
+        <div class="header-title">Espace de travail Genspark AI</div>
+        <div class="search-bar"></div>
+    </div>
+
+    <div style="text-align: center;">
+        <span class="pour-vous-badge">Pour vous</span>
+    </div>
+    
+    <div style="height: 40px;"></div> <!-- Spacer -->
+
+    <div class="cards-container">
+        <!-- Card 1 -->
+        <div class="card">
+            <div class="card-img"><div class="ai-pod-badge"><span>•))</span> AI Pods</div></div>
+            <div class="card-content">
+                <div class="card-title">'It's been really pretty': Stargazers gather to glimpse Northern Lights</div>
+            </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-img"><div class="ai-pod-badge"><span>•))</span> AI Pods</div></div>
+            <div class="card-content">
+                <div class="card-title">Indiana Claims Its First National Championship in Thrilling Game</div>
+            </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="card">
+            <div class="card-img"><div class="ai-pod-badge"><span>•))</span> AI Pods</div></div>
+            <div class="card-content">
+                <div class="card-title">Trump Issues Martin Luther King Jr. Day Proclamation</div>
+            </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="card">
+            <div class="card-img"><div class="ai-pod-badge"><span>•))</span> AI Pods</div></div>
+            <div class="card-content">
+                <div class="card-title">Brooklyn Beckham says he does not want to reconcile</div>
+            </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="card">
+            <div class="card-img"><div class="ai-pod-badge"><span>•))</span> AI Pods</div></div>
+            <div class="card-content">
+                <div class="card-title">Fans vent at Knicks as struggles continue against Mavericks</div>
+            </div>
+        </div>
+        <!-- Card 6 -->
+        <div class="card">
+            <div class="card-img"><div class="ai-pod-badge"><span>•))</span> AI Pods</div></div>
+            <div class="card-content">
+                <div class="card-title">Rihanna Hit by Closing Door During NYC Outing</div>
+            </div>
+        </div>
+        <!-- Card 7 -->
+        <div class="card">
+            <div class="card-img"><div class="ai-pod-badge"><span>•))</span> AI Pods</div></div>
+            <div class="card-content">
+                <div class="card-title">Donald Trump's Insane New Threat Leaves No Doubt</div>
+            </div>
+        </div>
+        <!-- Card 8 -->
+        <div class="card">
+            <div class="card-img"><div class="ai-pod-badge"><span>•))</span> AI Pods</div></div>
+            <div class="card-content">
+                <div class="card-title">More than 100 vehicles pile up in Michigan crash</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scroll-hint">Scroll down or Click to animate</div>
+
+    <script>
+        // Toggle on Click for easy demo
+        function toggleScrollState() {
+            document.body.classList.toggle('scrolled');
+            // Remove hint if scrolled
+            if(document.body.classList.contains('scrolled')) {
+                document.querySelector('.scroll-hint').style.display = 'none';
+            }
+        }
+
+        // Toggle on actual Scroll
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                document.body.classList.add('scrolled');
+                document.querySelector('.scroll-hint').style.display = 'none';
+            } else {
+                document.body.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genspark - Page d'accueil</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #feb47b;
+        }
+
+        .main-content {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .main-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .main-content p {
+            font-size: 1.5rem;
+            margin-bottom: 50px;
+            opacity: 0.9;
+        }
+
+        .animation-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 500px;
+            margin: 40px 0;
+        }
+
+        .fan-grid-animation {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            position: relative;
+        }
+
+        .grid-items-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 15px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .grid-item {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-origin: center;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* État d'éventail (initial) */
+        .grid-item.item-1 { transform: translate(-150%, -150%) rotate(-30deg) scale(0.5); }
+        .grid-item.item-2 { transform: translate(0, -180%) rotate(-15deg) scale(0.5); }
+        .grid-item.item-3 { transform: translate(150%, -150%) rotate(0deg) scale(0.5); }
+        .grid-item.item-4 { transform: translate(-180%, 0) rotate(-20deg) scale(0.5); }
+        .grid-item.item-5 { transform: translate(0, 0) rotate(0deg) scale(0.5); }
+        .grid-item.item-6 { transform: translate(180%, 0) rotate(10deg) scale(0.5); }
+        .grid-item.item-7 { transform: translate(-150%, 150%) rotate(0deg) scale(0.5); }
+        .grid-item.item-8 { transform: translate(0, 180%) rotate(15deg) scale(0.5); }
+        .grid-item.item-9 { transform: translate(150%, 150%) rotate(30deg) scale(0.5); }
+
+        /* État de grille (final) */
+        .grid-item.item-1.final-position { transform: translate(0, 0) rotate(0deg) scale(1); }
+        .grid-item.item-2.final-position { transform: translate(0, 0) rotate(0deg) scale(1); }
+        .grid-item.item-3.final-position { transform: translate(0, 0) rotate(0deg) scale(1); }
+        .grid-item.item-4.final-position { transform: translate(0, 0) rotate(0deg) scale(1); }
+        .grid-item.item-5.final-position { transform: translate(0, 0) rotate(0deg) scale(1); }
+        .grid-item.item-6.final-position { transform: translate(0, 0) rotate(0deg) scale(1); }
+        .grid-item.item-7.final-position { transform: translate(0, 0) rotate(0deg) scale(1); }
+        .grid-item.item-8.final-position { transform: translate(0, 0) rotate(0deg) scale(1); }
+        .grid-item.item-9.final-position { transform: translate(0, 0) rotate(0deg) scale(1); }
+
+        .grid-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, #ff7e5f, #feb47b);
+            border-radius: 10px;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .grid-item::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .item-icon {
+            font-size: 2rem;
+            z-index: 2;
+        }
+
+        /* Animation continue pour l'effet de pulsation */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 126, 95, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(254, 180, 123, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(255, 126, 95, 0.5);
+            }
+        }
+
+        .grid-item {
+            animation: pulse 3s infinite;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .main-content p {
+                font-size: 1.2rem;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .animation-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav class="navbar">
+                <div class="logo">Genspark</div>
+                <ul class="nav-links">
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="#">Fonctionnalités</a></li>
+                    <li><a href="#">À propos</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <h1>Bienvenue sur Genspark</h1>
+            <p>Votre plateforme intelligente de découverte et d'exploration</p>
+            
+            <!-- Animation d'éventail vers grille -->
+            <div class="animation-container">
+                <div class="fan-grid-animation">
+                    <div class="grid-items-container">
+                        <div class="grid-item item-1"><span class="item-icon">🔍</span></div>
+                        <div class="grid-item item-2"><span class="item-icon">💡</span></div>
+                        <div class="grid-item item-3"><span class="item-icon">⚡</span></div>
+                        <div class="grid-item item-4"><span class="item-icon">📊</span></div>
+                        <div class="grid-item item-5"><span class="item-icon">🎯</span></div>
+                        <div class="grid-item item-6"><span class="item-icon">🔗</span></div>
+                        <div class="grid-item item-7"><span class="item-icon">📚</span></div>
+                        <div class="grid-item item-8"><span class="item-icon">🚀</span></div>
+                        <div class="grid-item item-9"><span class="item-icon">⚙️</span></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Genspark. Tous droits réservés.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const gridItems = document.querySelectorAll('.grid-item');
+            
+            // Fonction pour animer la transition d'éventail vers grille
+            function animateFanToGrid() {
+                // D'abord, on applique l'état d'éventail
+                gridItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add('final-position');
+                    }, index * 100); // Déclencher chaque animation avec un léger décalage
+                });
+                
+                // Boucle infinie pour l'animation continue
+                setInterval(() => {
+                    // Retour à l'état d'éventail
+                    gridItems.forEach(item => {
+                        item.classList.remove('final-position');
+                    });
+                    
+                    // Attendre un moment avant de revenir à la grille
+                    setTimeout(() => {
+                        gridItems.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.add('final-position');
+                            }, index * 100);
+                        });
+                    }, 500);
+                }, 4000); // Répéter toutes les 4 secondes
+            }
+            
+            // Démarrer l'animation après un court délai pour permettre le rendu initial
+            setTimeout(animateFanToGrid, 1000);
+        });
+    </script>
+</body>
+</html>
