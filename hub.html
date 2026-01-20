@@ -207,7 +207,7 @@
             align-items: center;
             gap: 8px;
             padding: 4px 8px;
-            border-radius: 999px;
+            border-radius: 3px;
             border: 1px solid rgba(0,0,0,0.7);
             background: rgba(0,0,0,0.75);
             color: #fff;
@@ -222,7 +222,7 @@
         .rot-btn {
             width: 20px;
             height: 20px;
-            border-radius: 999px;
+            border-radius: 3px;
             border: 1px solid rgba(255,255,255,0.7);
             background: transparent;
             color: #fff;
@@ -239,7 +239,7 @@
         .move-btn {
             width: 20px;
             height: 20px;
-            border-radius: 6px;
+            border-radius: 3px;
             border: 1px solid rgba(255,255,255,0.7);
             background: transparent;
             color: #fff;
@@ -336,13 +336,13 @@
         }
 
         /* Very tight Fan angles & positions (Overlap) */
-        body:not(.scrolled) .card:nth-child(1) { --fan-x: -350%; --fan-y: 80px; --fan-rot: -30deg; z-index: 1; }
-        body:not(.scrolled) .card:nth-child(2) { --fan-x: -250%; --fan-y: 40px; --fan-rot: -20deg; z-index: 2; }
-        body:not(.scrolled) .card:nth-child(3) { --fan-x: -150%; --fan-y: 15px; --fan-rot: -10deg; z-index: 3; }
-        body:not(.scrolled) .card:nth-child(4) { --fan-x: -50%;  --fan-y: 0px;  --fan-rot: 0deg;  --fan-scale: 1.1; z-index: 4; }
-        body:not(.scrolled) .card:nth-child(5) { --fan-x: 50%;   --fan-y: 15px; --fan-rot: 10deg; z-index: 3; }
-        body:not(.scrolled) .card:nth-child(6) { --fan-x: 150%;  --fan-y: 40px; --fan-rot: 20deg; z-index: 2; }
-        body:not(.scrolled) .card:nth-child(7) { --fan-x: 250%;  --fan-y: 80px; --fan-rot: 30deg; z-index: 1; }
+        body:not(.scrolled) .card:nth-child(1) { --fan-x: -350%; --fan-y: 80px; --fan-rot: -26deg; --fan-dx: 65px;  --fan-dy: 100px; z-index: 1; }
+        body:not(.scrolled) .card:nth-child(2) { --fan-x: -250%; --fan-y: 40px; --fan-rot: -20deg; --fan-dx: 55px;  --fan-dy: 25px;  z-index: 2; }
+        body:not(.scrolled) .card:nth-child(3) { --fan-x: -150%; --fan-y: 15px; --fan-rot: -10deg; --fan-dx: 10px;  --fan-dy: -10px; z-index: 3; }
+        body:not(.scrolled) .card:nth-child(4) { --fan-x: -50%;  --fan-y: 0px;  --fan-rot: 0deg;  --fan-dx: 0px;   --fan-dy: 0px;   --fan-scale: 1.1; z-index: 4; }
+        body:not(.scrolled) .card:nth-child(5) { --fan-x: 50%;   --fan-y: 15px; --fan-rot: 10deg; --fan-dx: -5px;  --fan-dy: -5px;  z-index: 3; }
+        body:not(.scrolled) .card:nth-child(6) { --fan-x: 150%;  --fan-y: 40px; --fan-rot: 20deg; --fan-dx: -35px; --fan-dy: 35px;  z-index: 2; }
+        body:not(.scrolled) .card:nth-child(7) { --fan-x: 250%;  --fan-y: 80px; --fan-rot: 30deg; --fan-dx: -65px; --fan-dy: 110px; z-index: 1; }
 
         /* --- STATE: GRID (Scrolled) --- */
         body.scrolled .card {
@@ -376,6 +376,45 @@
         }
         body.scrolled .scroll-hint { opacity: 0; }
 
+        .fan-debug {
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            padding: 8px 10px;
+            border-radius: 3px;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            font-size: 11px;
+            line-height: 1.4;
+            z-index: 999;
+            letter-spacing: 0.2px;
+        }
+
+        .fan-debug div {
+            white-space: nowrap;
+        }
+
+        .param-toggle {
+            position: fixed;
+            top: 12px;
+            right: 12px;
+            z-index: 1000;
+            padding: 6px 10px;
+            border-radius: 3px;
+            border: 1px solid rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.8);
+            color: #111;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+        }
+
+        .params-hidden .rotate-control,
+        .params-hidden .fan-debug {
+            display: none;
+        }
+
         @media (max-width: 900px) {
         }
 
@@ -388,7 +427,7 @@
 
     </style>
 </head>
-<body>
+<body class="params-hidden">
 
     <img src="assets/images/cm_trans.png" alt="" class="bg-photo">
 
@@ -481,6 +520,8 @@
     </div>
 
     <div class="scroll-hint">Scrollez ou Cliquez pour animer</div>
+    <div class="fan-debug" id="fan-debug"></div>
+    <button class="param-toggle" id="param-toggle" type="button">Paramètres</button>
 
     <script>
         const cards = document.querySelectorAll('.card');
@@ -574,17 +615,40 @@
             card.appendChild(inner);
         });
 
+        const debug = document.getElementById('fan-debug');
+        const debugCards = [];
+        const paramToggle = document.getElementById('param-toggle');
+
+        paramToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.body.classList.toggle('params-hidden');
+        });
+
+        function formatCardValues(idx, card) {
+            const rot = getComputedStyle(card).getPropertyValue('--fan-rot').trim() || '0deg';
+            const dx = parseFloat(getComputedStyle(card).getPropertyValue('--fan-dx')) || 0;
+            const dy = parseFloat(getComputedStyle(card).getPropertyValue('--fan-dy')) || 0;
+            return `R${idx + 1}: ${rot} | x:${dx}px y:${dy}px`;
+        }
+
+        function updateDebug() {
+            debug.innerHTML = debugCards.map((entry) => {
+                const { idx, card } = entry;
+                return `<div>${formatCardValues(idx, card)}</div>`;
+            }).join('');
+        }
+
         // Add controls per card (first 14)
         cards.forEach((card, index) => {
+            if (index < 7) {
+                debugCards.push({ idx: index, card });
+            }
             if (index >= 14) return;
             const control = document.createElement('div');
             control.className = 'rotate-control';
             const label = document.createElement('span');
             label.className = 'rot-value';
-            const current = getComputedStyle(card).getPropertyValue('--fan-rot').trim() || '0deg';
-            const dxNow = parseFloat(getComputedStyle(card).getPropertyValue('--fan-dx')) || 0;
-            const dyNow = parseFloat(getComputedStyle(card).getPropertyValue('--fan-dy')) || 0;
-            label.textContent = `R${index + 1}: ${current} | x:${dxNow}px y:${dyNow}px`;
+            label.textContent = `R${index + 1}`;
             const minus = document.createElement('button');
             minus.type = 'button';
             minus.className = 'rot-btn';
@@ -600,9 +664,8 @@
                 const nextVal = value + delta;
                 const next = `${nextVal}deg`;
                 card.style.setProperty('--fan-rot', next);
-                const dx = parseFloat(getComputedStyle(card).getPropertyValue('--fan-dx')) || 0;
-                const dy = parseFloat(getComputedStyle(card).getPropertyValue('--fan-dy')) || 0;
-                label.textContent = `R${index + 1}: ${next} | x:${dx}px y:${dy}px`;
+                label.textContent = `R${index + 1}`;
+                updateDebug();
             };
 
             const movePad = document.createElement('div');
@@ -620,8 +683,8 @@
                     const nextDy = dyNow + dy;
                     card.style.setProperty('--fan-dx', `${nextDx}px`);
                     card.style.setProperty('--fan-dy', `${nextDy}px`);
-                    const rotNow = getComputedStyle(card).getPropertyValue('--fan-rot').trim() || '0deg';
-                    label.textContent = `R${index + 1}: ${rotNow} | x:${nextDx}px y:${nextDy}px`;
+                    label.textContent = `R${index + 1}`;
+                    updateDebug();
                 });
                 return b;
             };
@@ -647,6 +710,8 @@
             control.appendChild(movePad);
             card.appendChild(control);
         });
+
+        updateDebug();
 
         // Toggle scroll state
         function toggleScroll(e) {
