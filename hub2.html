@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace de travail Genspark AI - Anim 5</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+        body {
+            background-color: #ffffff;
+            color: #111;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            min-height: 200vh; /* Pour permettre le scroll */
+        }
+
+        /* --- Background Photo (depuis hub.html) --- */
+        .bg-photo {
+            position: fixed;
+            right: -12vw;
+            bottom: 0;
+            transform: none;
+            height: 100vh;
+            width: auto;
+            max-width: 120vw;
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: 0;
+            -webkit-mask-image: linear-gradient(to left, transparent 0%, black 30%, black 60%, transparent 100%);
+            mask-image: linear-gradient(to left, transparent 0%, black 30%, black 60%, transparent 100%);
+            filter: grayscale(100%);
+        }
+
+        /* --- Header & Filtres (styles principaux repris de hub.html) --- */
+        .header-section {
+            padding-top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-title-main {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .socials-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .social-bubble {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-bubble::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            padding: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .social-bubble:hover::before {
+            opacity: 1;
+        }
+
+        .social-bubble.x {
+            background: #f5f5f5;
+            color: #000;
+        }
+
+        .social-bubble.x:hover {
+            background: #000;
+            color: #fff;
+            transform: translateY(-4px) scale(1.1);
+        }
+
+        .social-bubble.linkedin {
+            background: #f0f7ff;
+            color: #0077b5;
+        }
+
+        .social-bubble.linkedin:hover {
+            background: #0077b5;
+            color: #fff;
+            transform: translateY(-4px) scale(1.1);
+        }
+
+        .social-bubble.github {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .social-bubble.github:hover {
+            background: #333;
+            color: #fff;
+            transform: translateY(-4px) scale(1.1);
+        }
+
+        .social-bubble.email {
+            background: #fef3f2;
+            color: #ea4335;
+        }
+
+        .social-bubble.email:hover {
+            background: linear-gradient(135deg, #ea4335, #fbbc05, #34a853, #4285f4);
+            color: #fff;
+            transform: translateY(-4px) scale(1.1);
+        }
+
+        .social-bubble svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .filters-container {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-pill {
+            background: #f3f4f6;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 13px;
+            color: #4b5563;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-pill.active {
+            background: #111;
+            color: #fff;
+        }
+
+        /* --- Header / Contexte --- */
+        .header-spacer {
+            height: 40vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+
+        .header-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .search-bar {
+            width: min(720px, 92vw);
+            height: 64px;
+            background: #f3f4f6;
+            border-radius: 999px;
+            margin-bottom: 32px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+        }
+
+        .pour-vous-badge {
+            background: #f3f4f6;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #1f2937;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- Conteneur de l'animation --- */
+        .cards-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 220px auto 0; /* descend l'animation */
+            height: 800px; /* Espace pour la grille finale */
+        }
+
+        .card {
+            position: absolute;
+            width: 260px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 1.3s cubic-bezier(0.25, 1, 0.5, 1);
+            transform-origin: center bottom;
+            will-change: transform, left, top;
+        }
+
+        .card-img {
+            height: 160px;
+            background-color: #e5e7eb;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .ai-pod-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            backdrop-filter: blur(4px);
+        }
+
+        .card-content {
+            padding: 16px;
+            opacity: 1;
+            transition: opacity 0.6s ease;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.4;
+            color: #111;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* --- Images (simulées) --- */
+        .card:nth-child(1) .card-img { background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&auto=format&fit=crop&q=60'); }
+        .card:nth-child(2) .card-img { background-image: url('https://images.unsplash.com/photo-1542281286-9e0a16bb7366?w=500&auto=format&fit=crop&q=60'); }
+        .card:nth-child(3) .card-img { background-image: url('https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=500&auto=format&fit=crop&q=60'); }
+        .card:nth-child(4) .card-img { background-image: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&auto=format&fit=crop&q=60'); }
+        .card:nth-child(5) .card-img { background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=60'); }
+        .card:nth-child(6) .card-img { background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60'); }
+        .card:nth-child(7) .card-img { background-image: url('https://images.unsplash.com/photo-1554151228-14d9def656ec?w=500&auto=format&fit=crop&q=60'); }
+        .card:nth-child(8) .card-img { background-image: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=60'); }
+
+
+        /* --- ÉTAT : éventail (accueil) --- */
+        body:not(.scrolled) .card {
+            left: 40%; /* décale l’éventail vers la gauche */
+            top: 100px;
+            box-shadow: 0 20px 40px -5px rgba(0,0,0,0.28);
+        }
+        
+        body:not(.scrolled) .card-content {
+            opacity: 0;
+        }
+        
+        /* Répartition de l'éventail : 8 tuiles symétriques, marges égales gauche/droite */
+        body:not(.scrolled) .card:nth-child(1) { transform: translate(-220%, 80px) rotate(-28deg); z-index: 1; }
+        body:not(.scrolled) .card:nth-child(2) { transform: translate(-160%, 40px) rotate(-20deg); z-index: 2; }
+        body:not(.scrolled) .card:nth-child(3) { transform: translate(-100%, 15px) rotate(-12deg); z-index: 3; }
+        body:not(.scrolled) .card:nth-child(4) { transform: translate(-40%, 0px)   rotate(-4deg);  z-index: 4; scale: 1.04; }
+        body:not(.scrolled) .card:nth-child(5) { transform: translate(40%, 0px)    rotate(4deg);   z-index: 4; }
+        body:not(.scrolled) .card:nth-child(6) { transform: translate(100%, 15px)  rotate(12deg);  z-index: 3; }
+        body:not(.scrolled) .card:nth-child(7) { transform: translate(160%, 40px)  rotate(20deg);  z-index: 2; }
+        body:not(.scrolled) .card:nth-child(8) { transform: translate(220%, 80px)  rotate(28deg);  z-index: 1; }
+
+
+        /* --- ÉTAT : grille (après scroll) --- */
+        body.scrolled .card {
+            transform: rotate(0deg) scale(1) translate(0, 0) !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.scrolled .card-content {
+            opacity: 1;
+        }
+
+        /* Grille 4 colonnes (2 rangées) */
+        body.scrolled .card:nth-child(1) { left: 0px;   top: 0px; }
+        body.scrolled .card:nth-child(2) { left: 300px; top: 0px; }
+        body.scrolled .card:nth-child(3) { left: 600px; top: 0px; }
+        body.scrolled .card:nth-child(4) { left: 900px; top: 0px; }
+        body.scrolled .card:nth-child(5) { left: 0px;   top: 300px; }
+        body.scrolled .card:nth-child(6) { left: 300px; top: 300px; }
+        body.scrolled .card:nth-child(7) { left: 600px; top: 300px; }
+        body.scrolled .card:nth-child(8) { left: 900px; top: 300px; }
+
+        /* Indication de scroll */
+        .scroll-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #888;
+            font-size: 14px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+            40% {transform: translateX(-50%) translateY(-10px);}
+            60% {transform: translateX(-50%) translateY(-5px);}
+        }
+</style>
+</head>
+<body>
+
+    <img src="assets/images/cm_trans.png" alt="" class="bg-photo">
+
+    <div class="header-section">
+        <h1 class="header-title-main">Mondary Clément</h1>
+        <div class="socials-container">
+            <a href="#" class="social-bubble x" title="X (Twitter)">
+                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" class="social-bubble linkedin" title="LinkedIn">
+                <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+            <a href="#" class="social-bubble github" title="GitHub">
+                <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+            <a href="#" class="social-bubble email" title="Email">
+                <svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+            </a>
+        </div>
+
+        <div class="filters-container">
+            <div class="filter-pill active">Tous</div>
+            <div class="filter-pill">Website</div>
+            <div class="filter-pill">Extensions Chrome</div>
+            <div class="filter-pill">Extensions VS Code</div>
+            <div class="filter-pill">Applications macOS</div>
+            <div class="filter-pill">Scripts Shell</div>
+        </div>
+    </div>
+
+    <!-- Espace de travail Genspark AI + badge "Pour vous" retirés pour ne garder que ton header perso -->
+
+    <div class="cards-container">
+        <!-- 8 cartes comme dans le GIF -->
+        <div class="card">
+            <div class="card-img"><div class="ai-pod-badge"><span>•))</span> AI Pods</div></div>
+            <div class="card-content">
+                <div class="card-title">'It's been really pretty': Stargazers gather to glimpse Northern Lights</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-img"><div class="ai-pod-badge"><span>•))</span> AI Pods</div></div>
+            <div class="card-content">
+                <div class="card-title">Indiana Claims Its First National Championship in Thrilling Game</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-img"><div class="ai-pod-badge"><span>•))</span> AI Pods</div></div>
+            <div class="card-content">
+                <div class="card-title">Trump Issues Martin Luther King Jr. Day Proclamation</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-img"><div class="ai-pod-badge"><span>•))</span> AI Pods</div></div>
+            <div class="card-content">
+                <div class="card-title">Brooklyn Beckham says he does not want to reconcile</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-img"><div class="ai-pod-badge"><span>•))</span> AI Pods</div></div>
+            <div class="card-content">
+                <div class="card-title">Fans vent at Knicks as struggles continue against Mavericks</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-img"><div class="ai-pod-badge"><span>•))</span> AI Pods</div></div>
+            <div class="card-content">
+                <div class="card-title">Rihanna Hit by Closing Door During NYC Outing</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-img"><div class="ai-pod-badge"><span>•))</span> AI Pods</div></div>
+            <div class="card-content">
+                <div class="card-title">Donald Trump's Insane New Threat Leaves No Doubt</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-img"><div class="ai-pod-badge"><span>•))</span> AI Pods</div></div>
+            <div class="card-content">
+                <div class="card-title">More than 100 vehicles pile up in Michigan crash</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scroll-hint">Scrollez pour lancer l’animation</div>
+
+    <script>
+        // Scroll : déclenchement de la grille
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                document.body.classList.add('scrolled');
+                document.querySelector('.scroll-hint').style.display = 'none';
+            } else {
+                document.body.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
