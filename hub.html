@@ -183,13 +183,57 @@
             width: calc(25% - 15px);
             background: white;
             border-radius: 16px;
-            overflow: hidden;
+            overflow: visible;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             border: 1px solid #efefef;
             transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
             transform-origin: center bottom;
             cursor: pointer;
             will-change: transform, left, top;
+        }
+
+        .card-inner {
+            border-radius: 16px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .rotate-control {
+            position: absolute;
+            top: -42px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.75);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+            line-height: 1;
+            z-index: 30;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+            pointer-events: auto;
+        }
+
+        .rot-btn {
+            width: 20px;
+            height: 20px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.7);
+            background: transparent;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .rot-btn:hover {
+            background: rgba(255,255,255,0.15);
         }
 
         .card-img {
@@ -250,6 +294,10 @@
             z-index: 10;
         }
 
+        body:not(.scrolled) .card {
+            transform: translate(var(--fan-x, -50%), var(--fan-y, 0px)) rotate(var(--fan-rot, 0deg)) scale(var(--fan-scale, 1));
+        }
+
         body:not(.scrolled) .card-content {
             opacity: 0;
             height: 0;
@@ -263,13 +311,13 @@
         }
 
         /* Very tight Fan angles & positions (Overlap) */
-        body:not(.scrolled) .card:nth-child(1) { transform: translate(-350%, 80px) rotate(-30deg); z-index: 1; }
-        body:not(.scrolled) .card:nth-child(2) { transform: translate(-250%, 40px) rotate(-20deg); z-index: 2; }
-        body:not(.scrolled) .card:nth-child(3) { transform: translate(-150%, 15px) rotate(-10deg); z-index: 3; }
-        body:not(.scrolled) .card:nth-child(4) { transform: translate(-50%, 0px)   rotate(0deg) scale(1.1); z-index: 4; }
-        body:not(.scrolled) .card:nth-child(5) { transform: translate(50%, 15px)   rotate(10deg);  z-index: 3; }
-        body:not(.scrolled) .card:nth-child(6) { transform: translate(150%, 40px)  rotate(20deg);  z-index: 2; }
-        body:not(.scrolled) .card:nth-child(7) { transform: translate(250%, 80px)  rotate(30deg);  z-index: 1; }
+        body:not(.scrolled) .card:nth-child(1) { --fan-x: -350%; --fan-y: 80px; --fan-rot: -30deg; z-index: 1; }
+        body:not(.scrolled) .card:nth-child(2) { --fan-x: -250%; --fan-y: 40px; --fan-rot: -20deg; z-index: 2; }
+        body:not(.scrolled) .card:nth-child(3) { --fan-x: -150%; --fan-y: 15px; --fan-rot: -10deg; z-index: 3; }
+        body:not(.scrolled) .card:nth-child(4) { --fan-x: -50%;  --fan-y: 0px;  --fan-rot: 0deg;  --fan-scale: 1.1; z-index: 4; }
+        body:not(.scrolled) .card:nth-child(5) { --fan-x: 50%;   --fan-y: 15px; --fan-rot: 10deg; z-index: 3; }
+        body:not(.scrolled) .card:nth-child(6) { --fan-x: 150%;  --fan-y: 40px; --fan-rot: 20deg; z-index: 2; }
+        body:not(.scrolled) .card:nth-child(7) { --fan-x: 250%;  --fan-y: 80px; --fan-rot: 30deg; z-index: 1; }
 
         /* --- STATE: GRID (Scrolled) --- */
         body.scrolled .card {
@@ -489,6 +537,53 @@
                 pill.classList.add('active');
                 filterCards(pill.dataset.filter);
             });
+        });
+
+        // Wrap card content so controls can sit outside without clipping
+        cards.forEach((card) => {
+            const inner = document.createElement('div');
+            inner.className = 'card-inner';
+            while (card.firstChild) {
+                inner.appendChild(card.firstChild);
+            }
+            card.appendChild(inner);
+        });
+
+        // Add rotation controls per card
+        cards.forEach((card, index) => {
+            const control = document.createElement('div');
+            control.className = 'rotate-control';
+            const label = document.createElement('span');
+            label.className = 'rot-value';
+            const current = getComputedStyle(card).getPropertyValue('--fan-rot').trim() || '0deg';
+            label.textContent = `R${index + 1}: ${current}`;
+            const minus = document.createElement('button');
+            minus.type = 'button';
+            minus.className = 'rot-btn';
+            minus.textContent = '−';
+            const plus = document.createElement('button');
+            plus.type = 'button';
+            plus.className = 'rot-btn';
+            plus.textContent = '+';
+
+            const update = (delta) => {
+                const now = getComputedStyle(card).getPropertyValue('--fan-rot').trim() || '0deg';
+                const value = parseFloat(now.replace('deg', '')) || 0;
+                const nextVal = value + delta;
+                const next = `${nextVal}deg`;
+                card.style.setProperty('--fan-rot', next);
+                label.textContent = `R${index + 1}: ${next}`;
+            };
+
+            control.addEventListener('click', (e) => e.stopPropagation());
+            control.addEventListener('mousedown', (e) => e.stopPropagation());
+            minus.addEventListener('click', (e) => { e.stopPropagation(); update(-1); });
+            plus.addEventListener('click', (e) => { e.stopPropagation(); update(1); });
+
+            control.appendChild(minus);
+            control.appendChild(label);
+            control.appendChild(plus);
+            card.appendChild(control);
         });
 
         // Toggle scroll state
