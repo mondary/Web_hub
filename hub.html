@@ -236,6 +236,31 @@
             background: rgba(255,255,255,0.15);
         }
 
+        .move-btn {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.7);
+            background: transparent;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .move-btn:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .move-pad {
+            display: grid;
+            grid-template-columns: repeat(3, 20px);
+            grid-template-rows: repeat(3, 20px);
+            gap: 4px;
+            margin-left: 6px;
+        }
+
         .card-img {
             width: 100%;
             height: 180px; /* Default height */
@@ -295,7 +320,7 @@
         }
 
         body:not(.scrolled) .card {
-            transform: translate(var(--fan-x, -50%), var(--fan-y, 0px)) rotate(var(--fan-rot, 0deg)) scale(var(--fan-scale, 1));
+            transform: translate(calc(var(--fan-x, -50%) + var(--fan-dx, 0px)), calc(var(--fan-y, 0px) + var(--fan-dy, 0px))) rotate(var(--fan-rot, 0deg)) scale(var(--fan-scale, 1));
         }
 
         body:not(.scrolled) .card-content {
@@ -363,7 +388,7 @@
 
     </style>
 </head>
-<body onclick="toggleScroll()">
+<body>
 
     <img src="assets/images/cm_trans.png" alt="" class="bg-photo">
 
@@ -549,14 +574,17 @@
             card.appendChild(inner);
         });
 
-        // Add rotation controls per card
+        // Add controls per card (first 14)
         cards.forEach((card, index) => {
+            if (index >= 14) return;
             const control = document.createElement('div');
             control.className = 'rotate-control';
             const label = document.createElement('span');
             label.className = 'rot-value';
             const current = getComputedStyle(card).getPropertyValue('--fan-rot').trim() || '0deg';
-            label.textContent = `R${index + 1}: ${current}`;
+            const dxNow = parseFloat(getComputedStyle(card).getPropertyValue('--fan-dx')) || 0;
+            const dyNow = parseFloat(getComputedStyle(card).getPropertyValue('--fan-dy')) || 0;
+            label.textContent = `R${index + 1}: ${current} | x:${dxNow}px y:${dyNow}px`;
             const minus = document.createElement('button');
             minus.type = 'button';
             minus.className = 'rot-btn';
@@ -572,8 +600,41 @@
                 const nextVal = value + delta;
                 const next = `${nextVal}deg`;
                 card.style.setProperty('--fan-rot', next);
-                label.textContent = `R${index + 1}: ${next}`;
+                const dx = parseFloat(getComputedStyle(card).getPropertyValue('--fan-dx')) || 0;
+                const dy = parseFloat(getComputedStyle(card).getPropertyValue('--fan-dy')) || 0;
+                label.textContent = `R${index + 1}: ${next} | x:${dx}px y:${dy}px`;
             };
+
+            const movePad = document.createElement('div');
+            movePad.className = 'move-pad';
+            const mkBtn = (txt, dx, dy) => {
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'move-btn';
+                b.textContent = txt;
+                b.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const dxNow = parseFloat(getComputedStyle(card).getPropertyValue('--fan-dx')) || 0;
+                    const dyNow = parseFloat(getComputedStyle(card).getPropertyValue('--fan-dy')) || 0;
+                    const nextDx = dxNow + dx;
+                    const nextDy = dyNow + dy;
+                    card.style.setProperty('--fan-dx', `${nextDx}px`);
+                    card.style.setProperty('--fan-dy', `${nextDy}px`);
+                    const rotNow = getComputedStyle(card).getPropertyValue('--fan-rot').trim() || '0deg';
+                    label.textContent = `R${index + 1}: ${rotNow} | x:${nextDx}px y:${nextDy}px`;
+                });
+                return b;
+            };
+
+            movePad.appendChild(mkBtn('↖', -5, -5));
+            movePad.appendChild(mkBtn('↑', 0, -5));
+            movePad.appendChild(mkBtn('↗', 5, -5));
+            movePad.appendChild(mkBtn('←', -5, 0));
+            movePad.appendChild(mkBtn('•', 0, 0));
+            movePad.appendChild(mkBtn('→', 5, 0));
+            movePad.appendChild(mkBtn('↙', -5, 5));
+            movePad.appendChild(mkBtn('↓', 0, 5));
+            movePad.appendChild(mkBtn('↘', 5, 5));
 
             control.addEventListener('click', (e) => e.stopPropagation());
             control.addEventListener('mousedown', (e) => e.stopPropagation());
@@ -583,6 +644,7 @@
             control.appendChild(minus);
             control.appendChild(label);
             control.appendChild(plus);
+            control.appendChild(movePad);
             card.appendChild(control);
         });
 
@@ -599,7 +661,6 @@
             }
         }
 
-        document.body.addEventListener('click', toggleScroll);
 
         window.addEventListener('scroll', () => {
             if (window.scrollY > 40) {
