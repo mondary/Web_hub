@@ -19,11 +19,12 @@
         /* --- Background Photo --- */
         .bg-photo {
             position: fixed;
-            right: -15%;
+            right: -12vw;
             bottom: 0;
             transform: none;
-            width: clamp(240px, 45vw, 700px);
-            height: auto;
+            height: 100vh;
+            width: auto;
+            max-width: 120vw;
             opacity: 0.08;
             pointer-events: none;
             z-index: 0;
@@ -423,6 +424,11 @@
             .header-title { font-size: 28px; }
             .filters-container { gap: 6px; margin-bottom: 28px; }
             body:not(.scrolled) .card { width: clamp(170px, 70vw, 240px); }
+            .bg-photo {
+                height: 60vh;
+                max-width: 140vw;
+                right: -20vw;
+            }
         }
 
     </style>
