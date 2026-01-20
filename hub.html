@@ -187,7 +187,11 @@
             overflow: visible;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             border: 1px solid #efefef;
-            transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+            /* Animation encore plus longue et très douce pour le passage éventail -> grille */
+            transition:
+                transform 3s cubic-bezier(0.23, 1, 0.32, 1),
+                left 3s cubic-bezier(0.23, 1, 0.32, 1),
+                top 3s cubic-bezier(0.23, 1, 0.32, 1);
             transform-origin: center bottom;
             cursor: pointer;
             will-change: transform, left, top;
@@ -302,6 +306,8 @@
         .card-content {
             padding: 16px;
             background: white;
+            opacity: 1;
+            transition: opacity 0.8s ease; /* fade plus doux et un peu plus lent */
         }
 
         .card-title {
@@ -324,11 +330,8 @@
             transform: translate(calc(var(--fan-x, -50%) + var(--fan-dx, 0px)), calc(var(--fan-y, 0px) + var(--fan-dy, 0px))) rotate(var(--fan-rot, 0deg)) scale(var(--fan-scale, 1));
         }
 
-        body:not(.scrolled) .card-content {
-            opacity: 0;
-            height: 0;
-            padding: 0;
-        }
+        /* Le contenu reste visible dans les deux états
+           (même tuiles en éventail et en grille) */
 
         /* Fan: only show first 7 cards */
         body:not(.scrolled) .card:nth-child(n+8) {
@@ -719,24 +722,31 @@
 
         updateDebug();
 
-        // Toggle scroll state
+        // Toggle scroll state (click anywhere, except on filters / socials)
         function toggleScroll(e) {
             if (e.target.closest('.filter-pill') || e.target.closest('.social-bubble')) return;
 
             const isScrolled = document.body.classList.toggle('scrolled');
 
             if (isScrolled) {
+                // Force un reflow pour éviter les clignotements, puis applique la grille
+                void document.body.offsetWidth;
                 layoutCards();
             } else {
                 clearCardStyles();
             }
         }
 
+        // Click to toggle fan <-> grid (like archives/anim.html)
+        document.body.addEventListener('click', toggleScroll);
 
         window.addEventListener('scroll', () => {
             if (window.scrollY > 40) {
                 if (!document.body.classList.contains('scrolled')) {
                     document.body.classList.add('scrolled');
+                    // Même principe que pour le clic : on force un reflow
+                    // puis on applique la grille pour lisser la transition.
+                    void document.body.offsetWidth;
                     layoutCards();
                 }
             } else {
