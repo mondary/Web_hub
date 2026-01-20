@@ -302,7 +302,7 @@
             overflow: hidden;
             cursor: pointer;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: all 1.3s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: all 1.95s cubic-bezier(0.25, 1, 0.5, 1);
             transform-origin: center bottom;
             will-change: transform, left, top;
         }
@@ -361,14 +361,16 @@
 
         /* --- ÉTAT : éventail (accueil) --- */
         body:not(.scrolled) .card {
+            position: fixed;
             left: 40%; /* décale l’éventail vers la gauche */
-            top: var(--fan-base, 60vh);
+            bottom: 40px;
+            top: auto;
             width: clamp(200px, 45vw, 260px);
             box-shadow: 0 20px 40px -5px rgba(0,0,0,0.28);
         }
         
         body:not(.scrolled) .card-content {
-            opacity: 0;
+            opacity: 1;
         }
         
         /* Répartition de l'éventail : 8 tuiles symétriques, marges égales gauche/droite */
@@ -427,6 +429,7 @@
     <div class="header-section">
         <h1 class="header-title-main">Mondary Clément</h1>
         <div class="socials-container">
+            <a href="https://mondary.design" target="_blank" rel="noopener noreferrer" class="social-bubble website" title="Site web"><i class="fas fa-globe"></i></a>
             <a href="https://www.linkedin.com/in/clementmondary/" target="_blank" rel="noopener noreferrer" class="social-bubble linkedin" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
             <a href="https://github.com/mondary" target="_blank" rel="noopener noreferrer" class="social-bubble github" title="GitHub"><i class="fab fa-github"></i></a>
             <a href="https://x.com/Clement_mondary" target="_blank" rel="noopener noreferrer" class="social-bubble x" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
@@ -437,7 +440,6 @@
             <a href="https://www.threads.net/@clementmondary" target="_blank" rel="noopener noreferrer" class="social-bubble threads" title="Threads"><i class="fab fa-threads"></i></a>
             <a href="https://cmondary.tumblr.com/" target="_blank" rel="noopener noreferrer" class="social-bubble tumblr" title="Tumblr"><i class="fab fa-tumblr"></i></a>
             <a href="https://mondary.design/feed/" target="_blank" rel="noopener noreferrer" class="social-bubble rss" title="RSS"><i class="fas fa-rss"></i></a>
-            <a href="https://mondary.design" target="_blank" rel="noopener noreferrer" class="social-bubble website" title="Site web"><i class="fas fa-globe"></i></a>
         </div>
 
         <div class="filters-container">
@@ -507,15 +509,6 @@
     <div class="scroll-hint">Scrollez pour lancer l’animation</div>
 
     <script>
-        const cards = document.querySelectorAll('.card');
-
-        function updateFanBase() {
-            const firstCard = cards[0];
-            if (!firstCard) return;
-            const fanBase = window.innerHeight - firstCard.offsetHeight - 60;
-            document.documentElement.style.setProperty('--fan-base', `${Math.max(fanBase, 0)}px`);
-        }
-
         // Scroll : déclenchement de la grille
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -523,18 +516,7 @@
                 document.querySelector('.scroll-hint').style.display = 'none';
             } else {
                 document.body.classList.remove('scrolled');
-                updateFanBase();
             }
-        });
-
-        window.addEventListener('resize', () => {
-            if (!document.body.classList.contains('scrolled')) {
-                updateFanBase();
-            }
-        });
-
-        window.addEventListener('load', () => {
-            updateFanBase();
         });
     </script>
 </body>
