@@ -385,37 +385,27 @@
             height: 210px;
         }
 
-        .category-badge {
+        .category-icon {
             position: absolute;
-            top: 12px;
-            left: 12px;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-            backdrop-filter: blur(4px);
+            top: 10px;
+            right: 10px;
+            width: 28px;
+            height: 28px;
+            border-radius: 999px;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
+            backdrop-filter: blur(6px);
         }
 
-        .category-badge.website {
-            background: rgba(99, 102, 241, 0.85);
+        .category-icon i {
+            font-size: 14px;
         }
 
-        .category-badge.chrome {
-            background: rgba(234, 67, 53, 0.85);
-        }
-
-        .category-badge.vscode {
-            background: rgba(0, 122, 204, 0.85);
-        }
-
-        .category-badge.macos {
-            background: rgba(0, 0, 0, 0.75);
-        }
-
-        .category-badge.shell {
-            background: rgba(34, 197, 94, 0.85);
-        }
+        .category-icon.website { background: rgba(99, 102, 241, 0.85); }
+        .category-icon.chrome { background: rgba(234, 67, 53, 0.85); }
+        .category-icon.vscode { background: rgba(0, 122, 204, 0.85); }
 
         .card.hidden {
             opacity: 0;
@@ -661,7 +651,7 @@
     <div class="main-wrapper" id="cards-container">
         <a class="card" data-category="website" href="https://notes.pouark.com" target="_0" rel="noopener noreferrer">
             <div class="card-img" style="background-image: url('assets/thumbnails/notes.pouark.com.png');">
-                <div class="category-badge website">Site</div>
+                <div class="category-icon website"><i class="fas fa-globe"></i></div>
             </div>
             <div class="card-content">
                 <div class="card-title">notes.pouark.com</div>
@@ -669,7 +659,7 @@
         </a>
         <a class="card" data-category="website" href="https://mondary.me" target="_0" rel="noopener noreferrer">
             <div class="card-img" style="background-image: url('assets/thumbnails/mondary.me.png');">
-                <div class="category-badge website">Site</div>
+                <div class="category-icon website"><i class="fas fa-globe"></i></div>
             </div>
             <div class="card-content">
                 <div class="card-title">mondary.me</div>
@@ -677,7 +667,7 @@
         </a>
         <a class="card" data-category="website" href="https://mondary.design" target="_0" rel="noopener noreferrer">
             <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design.png');">
-                <div class="category-badge website">Site</div>
+                <div class="category-icon website"><i class="fas fa-globe"></i></div>
             </div>
             <div class="card-content">
                 <div class="card-title">mondary.design</div>
@@ -685,7 +675,7 @@
         </a>
         <a class="card" data-category="website" href="https://linkedin.pouark.com" target="_0" rel="noopener noreferrer">
             <div class="card-img" style="background-image: url('assets/thumbnails/linkedin.pouark.com.png');">
-                <div class="category-badge website">Site</div>
+                <div class="category-icon website"><i class="fas fa-globe"></i></div>
             </div>
             <div class="card-content">
                 <div class="card-title">linkedin.pouark.com</div>
@@ -693,7 +683,7 @@
         </a>
         <a class="card" data-category="website" href="https://mondary.design/pk/about/" target="_0" rel="noopener noreferrer">
             <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-about.png');">
-                <div class="category-badge website">Site</div>
+                <div class="category-icon website"><i class="fas fa-globe"></i></div>
             </div>
             <div class="card-content">
                 <div class="card-title">mondary.design/pk/about</div>
@@ -701,7 +691,7 @@
         </a>
         <a class="card" data-category="website" href="https://mondary.design/pk/btc/BTC_TradingView.html" target="_0" rel="noopener noreferrer">
             <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-btc.png');">
-                <div class="category-badge website">Site</div>
+                <div class="category-icon website"><i class="fas fa-globe"></i></div>
             </div>
             <div class="card-content">
                 <div class="card-title">mondary.design/pk/btc/BTC_TradingView</div>
@@ -709,7 +699,7 @@
         </a>
         <a class="card" data-category="website" href="https://mondary.design/pk/gog/" target="_0" rel="noopener noreferrer">
             <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-gog.png');">
-                <div class="category-badge website">Site</div>
+                <div class="category-icon website"><i class="fas fa-globe"></i></div>
             </div>
             <div class="card-content">
                 <div class="card-title">mondary.design/pk/gog</div>
@@ -717,7 +707,7 @@
         </a>
         <a class="card" data-category="website" href="https://mondary.design/pk/pkchangedetection/" target="_0" rel="noopener noreferrer">
             <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-changedetection.png');">
-                <div class="category-badge website">Site</div>
+                <div class="category-icon website"><i class="fas fa-globe"></i></div>
             </div>
             <div class="card-content">
                 <div class="card-title">mondary.design/pk/pkchangedetection</div>
@@ -725,7 +715,7 @@
         </a>
         <a class="card" data-category="website" href="https://mondary.design/pk/pkcrop/" target="_0" rel="noopener noreferrer">
             <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-crop.png');">
-                <div class="category-badge website">Site</div>
+                <div class="category-icon website"><i class="fas fa-globe"></i></div>
             </div>
             <div class="card-content">
                 <div class="card-title">mondary.design/pk/pkcrop</div>
@@ -733,7 +723,7 @@
         </a>
         <a class="card" data-category="website" href="https://mondary.design/pk/pkcuisto/" target="_0" rel="noopener noreferrer">
             <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-cuisto.png');">
-                <div class="category-badge website">Site</div>
+                <div class="category-icon website"><i class="fas fa-globe"></i></div>
             </div>
             <div class="card-content">
                 <div class="card-title">mondary.design/pk/pkcuisto</div>
@@ -741,7 +731,7 @@
         </a>
         <a class="card" data-category="website" href="https://mondary.design/pk/pkndf/" target="_0" rel="noopener noreferrer">
             <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-ndf.png');">
-                <div class="category-badge website">Site</div>
+                <div class="category-icon website"><i class="fas fa-globe"></i></div>
             </div>
             <div class="card-content">
                 <div class="card-title">mondary.design/pk/pkndf</div>
@@ -749,7 +739,7 @@
         </a>
         <a class="card" data-category="website" href="https://mondary.design/pk/pkstickies/" target="_0" rel="noopener noreferrer">
             <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-stickies.png');">
-                <div class="category-badge website">Site</div>
+                <div class="category-icon website"><i class="fas fa-globe"></i></div>
             </div>
             <div class="card-content">
                 <div class="card-title">mondary.design/pk/pkstickies</div>
@@ -757,7 +747,7 @@
         </a>
         <a class="card" data-category="website" href="https://mondary.design/pk/scifitube/" target="_0" rel="noopener noreferrer">
             <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-scifitube.png');">
-                <div class="category-badge website">Site</div>
+                <div class="category-icon website"><i class="fas fa-globe"></i></div>
             </div>
             <div class="card-content">
                 <div class="card-title">mondary.design/pk/scifitube</div>
@@ -765,7 +755,7 @@
         </a>
         <a class="card" data-category="website" href="https://mondary.design/pk/steamYearinreview/" target="_0" rel="noopener noreferrer">
             <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-steam.png');">
-                <div class="category-badge website">Site</div>
+                <div class="category-icon website"><i class="fas fa-globe"></i></div>
             </div>
             <div class="card-content">
                 <div class="card-title">mondary.design/pk/steamYearinreview</div>
@@ -773,7 +763,7 @@
         </a>
         <a class="card" data-category="vscode" href="https://marketplace.visualstudio.com/items?itemName=Cmondary.vs-pkvsconf" target="_0" rel="noopener noreferrer">
             <div class="card-img" style="background-image: url('assets/thumbnails/vs-pkvsconf.png');">
-                <div class="category-badge vscode">VS Code</div>
+                <div class="category-icon vscode"><i class="fas fa-code"></i></div>
             </div>
             <div class="card-content">
                 <div class="card-title">vs-pkvsconf</div>
@@ -781,7 +771,7 @@
         </a>
         <a class="card" data-category="vscode" href="https://marketplace.visualstudio.com/items?itemName=Cmondary.vs-pkscriptcatws" target="_0" rel="noopener noreferrer">
             <div class="card-img" style="background-image: url('assets/thumbnails/vs-pkscriptcatws.png');">
-                <div class="category-badge vscode">VS Code</div>
+                <div class="category-icon vscode"><i class="fas fa-code"></i></div>
             </div>
             <div class="card-content">
                 <div class="card-title">vs-pkscriptcatws</div>
@@ -789,7 +779,7 @@
         </a>
         <a class="card" data-category="vscode" href="https://marketplace.visualstudio.com/items?itemName=Cmondary.vs-pkterminal" target="_0" rel="noopener noreferrer">
             <div class="card-img" style="background-image: url('assets/thumbnails/vs-pkterminal.png');">
-                <div class="category-badge vscode">VS Code</div>
+                <div class="category-icon vscode"><i class="fas fa-code"></i></div>
             </div>
             <div class="card-content">
                 <div class="card-title">vs-pkterminal</div>
@@ -797,7 +787,7 @@
         </a>
         <a class="card" data-category="chrome" href="https://chromewebstore.google.com/detail/mondary-new-tab/boeenonaijkccialgfaeipkhfhnnpfmd" target="_0" rel="noopener noreferrer">
             <div class="card-img" style="background-image: url('assets/thumbnails/mondary-new-tab.png');">
-                <div class="category-badge chrome">Chrome</div>
+                <div class="category-icon chrome"><i class="fab fa-chrome"></i></div>
             </div>
             <div class="card-content">
                 <div class="card-title">Mondary New Tab</div>
@@ -805,7 +795,7 @@
         </a>
         <a class="card" data-category="chrome" href="https://chromewebstore.google.com/detail/simplegmail/kijhhekofbbmdgnheepmjcenehmgepgl" target="_0" rel="noopener noreferrer">
             <div class="card-img" style="background-image: url('assets/thumbnails/simplegmail.png');">
-                <div class="category-badge chrome">Chrome</div>
+                <div class="category-icon chrome"><i class="fab fa-chrome"></i></div>
             </div>
             <div class="card-content">
                 <div class="card-title">SimpleGmail</div>
