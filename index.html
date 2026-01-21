@@ -242,10 +242,15 @@
             z-index: 20;
             width: 100%;
             box-sizing: border-box;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(6px);
+            background: transparent;
             padding: 12px 16px;
             border-radius: 0;
+        }
+
+        .filters-container.is-stuck {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
         }
 
         .filter-pill {
@@ -811,6 +816,7 @@
         const cards = document.querySelectorAll('.card');
         const pills = document.querySelectorAll('.filter-pill');
         const container = document.getElementById('cards-container');
+        const filters = document.querySelector('.filters-container');
         let currentFilter = 'all';
 
         function updateFilterCounts() {
@@ -909,6 +915,18 @@
         });
 
         updateFilterCounts();
+
+        const stickyOffset = filters.offsetTop;
+        function updateStickyState() {
+            if (window.scrollY >= stickyOffset) {
+                filters.classList.add('is-stuck');
+            } else {
+                filters.classList.remove('is-stuck');
+            }
+        }
+
+        window.addEventListener('scroll', updateStickyState);
+        window.addEventListener('load', updateStickyState);
 
         // Wrap card content so controls can sit outside without clipping
         cards.forEach((card) => {
