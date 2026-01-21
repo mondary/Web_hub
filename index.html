@@ -270,7 +270,7 @@
             width: calc(25% - 15px);
             background: white;
             border-radius: 16px;
-            overflow: visible;
+            overflow: hidden;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             border: 1px solid #efefef;
             /* Animation douce comme anim.html */
@@ -282,6 +282,9 @@
             transform-origin: center bottom;
             cursor: pointer;
             will-change: transform, left, top;
+            display: block;
+            text-decoration: none;
+            color: inherit;
         }
 
         .card-inner {
@@ -638,926 +641,165 @@
         </div>
         <div class="filters-container">
             <div class="filter-pill active" data-filter="all">Tous</div>
-            <div class="filter-pill" data-filter="website">Website</div>
-            <div class="filter-pill" data-filter="chrome">Extensions Chrome</div>
+            <div class="filter-pill" data-filter="website">Sites</div>
             <div class="filter-pill" data-filter="vscode">Extensions VS Code</div>
-            <div class="filter-pill" data-filter="macos">Applications macOS</div>
-            <div class="filter-pill" data-filter="shell">Scripts Shell</div>
+            <div class="filter-pill" data-filter="chrome">Extensions Chrome</div>
         </div>
     </div>
 
     <div class="main-wrapper" id="cards-container">
-        <!-- Website -->
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500');">
-                <div class="category-badge website">Website</div>
+        <a class="card" data-category="website" href="https://notes.pouark.com" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/notes.pouark.com.png');">
+                <div class="category-badge website">Site</div>
             </div>
             <div class="card-content">
-                <div class="card-title">Dashboard Analytics en temps réel</div>
+                <div class="card-title">notes.pouark.com</div>
             </div>
-        </div>
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500');">
-                <div class="category-badge website">Website</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Portfolio personnel interactif</div>
-            </div>
-        </div>
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1547658719-da2b51169166?w=500');">
-                <div class="category-badge website">Website</div>
+        </a>
+        <a class="card" data-category="website" href="https://mondary.me" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/mondary.me.png');">
+                <div class="category-badge website">Site</div>
             </div>
             <div class="card-content">
-                <div class="card-title">E-commerce avec panier dynamique</div>
+                <div class="card-title">mondary.me</div>
             </div>
-        </div>
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500');">
-                <div class="category-badge website">Website</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Plateforme de gestion de projets</div>
-            </div>
-        </div>
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1522542550221-31fd8575f488?w=500');">
-                <div class="category-badge website">Website</div>
+        </a>
+        <a class="card" data-category="website" href="https://mondary.design" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design.png');">
+                <div class="category-badge website">Site</div>
             </div>
             <div class="card-content">
-                <div class="card-title">Blog tech avec CMS headless</div>
+                <div class="card-title">mondary.design</div>
             </div>
-        </div>
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1559028012-481c04fa702d?w=500');">
-                <div class="category-badge website">Website</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Landing page SaaS moderne</div>
-            </div>
-        </div>
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=500');">
-                <div class="category-badge website">Website</div>
+        </a>
+        <a class="card" data-category="website" href="https://linkedin.pouark.com" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/linkedin.pouark.com.png');">
+                <div class="category-badge website">Site</div>
             </div>
             <div class="card-content">
-                <div class="card-title">Application de réservation en ligne</div>
+                <div class="card-title">linkedin.pouark.com</div>
             </div>
-        </div>
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=500');">
-                <div class="category-badge website">Website</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Tableau de bord financier</div>
-            </div>
-        </div>
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=500');">
-                <div class="category-badge website">Website</div>
+        </a>
+        <a class="card" data-category="website" href="https://mondary.design/pk/about/" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-about.png');">
+                <div class="category-badge website">Site</div>
             </div>
             <div class="card-content">
-                <div class="card-title">Interface de chat temps réel</div>
+                <div class="card-title">mondary.design/pk/about</div>
             </div>
-        </div>
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=500');">
-                <div class="category-badge website">Website</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Galerie photo avec lazy loading</div>
-            </div>
-        </div>
-
-        <!-- Chrome Extensions -->
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=500');">
-                <div class="category-badge chrome">Chrome</div>
+        </a>
+        <a class="card" data-category="website" href="https://mondary.design/pk/btc/BTC_TradingView.html" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-btc.png');">
+                <div class="category-badge website">Site</div>
             </div>
             <div class="card-content">
-                <div class="card-title">Tab Manager Pro - Gestion des onglets</div>
+                <div class="card-title">mondary.design/pk/btc/BTC_TradingView</div>
             </div>
-        </div>
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=500');">
-                <div class="category-badge chrome">Chrome</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Dark Mode Toggle universel</div>
-            </div>
-        </div>
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500');">
-                <div class="category-badge chrome">Chrome</div>
+        </a>
+        <a class="card" data-category="website" href="https://mondary.design/pk/gog/" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-gog.png');">
+                <div class="category-badge website">Site</div>
             </div>
             <div class="card-content">
-                <div class="card-title">Password Generator sécurisé</div>
+                <div class="card-title">mondary.design/pk/gog</div>
             </div>
-        </div>
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1551650975-87deedd944c3?w=500');">
-                <div class="category-badge chrome">Chrome</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Screenshot & Annotation Tool</div>
-            </div>
-        </div>
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500');">
-                <div class="category-badge chrome">Chrome</div>
+        </a>
+        <a class="card" data-category="website" href="https://mondary.design/pk/pkchangedetection/" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-changedetection.png');">
+                <div class="category-badge website">Site</div>
             </div>
             <div class="card-content">
-                <div class="card-title">Bloqueur de distractions Focus</div>
+                <div class="card-title">mondary.design/pk/pkchangedetection</div>
             </div>
-        </div>
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=500');">
-                <div class="category-badge chrome">Chrome</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Quick Notes - Prise de notes rapide</div>
-            </div>
-        </div>
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=500');">
-                <div class="category-badge chrome">Chrome</div>
+        </a>
+        <a class="card" data-category="website" href="https://mondary.design/pk/pkcrop/" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-crop.png');">
+                <div class="category-badge website">Site</div>
             </div>
             <div class="card-content">
-                <div class="card-title">JSON Viewer & Formatter</div>
+                <div class="card-title">mondary.design/pk/pkcrop</div>
             </div>
-        </div>
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=500');">
-                <div class="category-badge chrome">Chrome</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">API Tester intégré</div>
-            </div>
-        </div>
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=500');">
-                <div class="category-badge chrome">Chrome</div>
+        </a>
+        <a class="card" data-category="website" href="https://mondary.design/pk/pkcuisto/" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-cuisto.png');">
+                <div class="category-badge website">Site</div>
             </div>
             <div class="card-content">
-                <div class="card-title">Color Picker avancé</div>
+                <div class="card-title">mondary.design/pk/pkcuisto</div>
             </div>
-        </div>
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=500');">
-                <div class="category-badge chrome">Chrome</div>
+        </a>
+        <a class="card" data-category="website" href="https://mondary.design/pk/pkndf/" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-ndf.png');">
+                <div class="category-badge website">Site</div>
             </div>
             <div class="card-content">
-                <div class="card-title">Traducteur de page instantané</div>
+                <div class="card-title">mondary.design/pk/pkndf</div>
             </div>
-        </div>
-
-        <!-- VS Code Extensions -->
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500');">
+        </a>
+        <a class="card" data-category="website" href="https://mondary.design/pk/pkstickies/" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-stickies.png');">
+                <div class="category-badge website">Site</div>
+            </div>
+            <div class="card-content">
+                <div class="card-title">mondary.design/pk/pkstickies</div>
+            </div>
+        </a>
+        <a class="card" data-category="website" href="https://mondary.design/pk/scifitube/" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-scifitube.png');">
+                <div class="category-badge website">Site</div>
+            </div>
+            <div class="card-content">
+                <div class="card-title">mondary.design/pk/scifitube</div>
+            </div>
+        </a>
+        <a class="card" data-category="website" href="https://mondary.design/pk/steamYearinreview/" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-steam.png');">
+                <div class="category-badge website">Site</div>
+            </div>
+            <div class="card-content">
+                <div class="card-title">mondary.design/pk/steamYearinreview</div>
+            </div>
+        </a>
+        <a class="card" data-category="vscode" href="https://marketplace.visualstudio.com/items?itemName=Cmondary.vs-pkvsconf" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/vs-pkvsconf.png');">
                 <div class="category-badge vscode">VS Code</div>
             </div>
             <div class="card-content">
-                <div class="card-title">Snippets Manager personnalisé</div>
+                <div class="card-title">vs-pkvsconf</div>
             </div>
-        </div>
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=500');">
+        </a>
+        <a class="card" data-category="vscode" href="https://marketplace.visualstudio.com/items?itemName=Cmondary.vs-pkscriptcatws" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/vs-pkscriptcatws.png');">
                 <div class="category-badge vscode">VS Code</div>
             </div>
             <div class="card-content">
-                <div class="card-title">Git Lens amélioré</div>
+                <div class="card-title">vs-pkscriptcatws</div>
             </div>
-        </div>
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=500');">
+        </a>
+        <a class="card" data-category="vscode" href="https://marketplace.visualstudio.com/items?itemName=Cmondary.vs-pkterminal" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/vs-pkterminal.png');">
                 <div class="category-badge vscode">VS Code</div>
             </div>
             <div class="card-content">
-                <div class="card-title">Theme Builder - Créateur de thèmes</div>
+                <div class="card-title">vs-pkterminal</div>
             </div>
-        </div>
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500');">
-                <div class="category-badge vscode">VS Code</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Auto Import intelligent</div>
-            </div>
-        </div>
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=500');">
-                <div class="category-badge vscode">VS Code</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Code Formatter multi-langage</div>
-            </div>
-        </div>
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500');">
-                <div class="category-badge vscode">VS Code</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Debug Console avancée</div>
-            </div>
-        </div>
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500');">
-                <div class="category-badge vscode">VS Code</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Live Server avec hot reload</div>
-            </div>
-        </div>
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1537432376149-e84978a29b30?w=500');">
-                <div class="category-badge vscode">VS Code</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Terminal personnalisé intégré</div>
-            </div>
-        </div>
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1484417894907-623942c8ee29?w=500');">
-                <div class="category-badge vscode">VS Code</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Markdown Preview enhanced</div>
-            </div>
-        </div>
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=500');">
-                <div class="category-badge vscode">VS Code</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Project Manager workspace</div>
-            </div>
-        </div>
-
-        <!-- macOS Apps -->
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1517059224940-d4af9eec41b7?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Window Manager - Gestion fenêtres</div>
-            </div>
-        </div>
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Clipboard History Manager</div>
-            </div>
-        </div>
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Menu Bar Organizer</div>
-            </div>
-        </div>
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Quick Launcher spotlight-like</div>
-            </div>
-        </div>
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">System Monitor widget</div>
-            </div>
-        </div>
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1585776245991-cf89dd7fc73a?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Backup Scheduler automatisé</div>
-            </div>
-        </div>
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1550439062-609e1531270e?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Screenshot Organizer</div>
-            </div>
-        </div>
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Notification Center Manager</div>
-            </div>
-        </div>
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">App Uninstaller complet</div>
-            </div>
-        </div>
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Network Monitor avancé</div>
-            </div>
-        </div>
-
-        <!-- Shell Scripts -->
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Setup Dev Environment auto</div>
-            </div>
-        </div>
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Git Workflow Automation</div>
-            </div>
-        </div>
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Docker Container Manager</div>
-            </div>
-        </div>
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Database Backup Script</div>
-            </div>
-        </div>
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Log Analyzer & Reporter</div>
-            </div>
-        </div>
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Server Health Monitor</div>
-            </div>
-        </div>
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">File Sync & Backup rsync</div>
-            </div>
-        </div>
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">CI/CD Pipeline Helper</div>
-            </div>
-        </div>
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Bulk File Renamer</div>
-            </div>
-        </div>
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">System Cleanup Script</div>
-            </div>
-        </div>
-
-        <!-- Tuiles supplementaires -->
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500');">
-                <div class="category-badge website">Website</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Concept site • Tuile 01</div>
-            </div>
-        </div>
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500');">
+        </a>
+        <a class="card" data-category="chrome" href="https://chromewebstore.google.com/detail/mondary-new-tab/boeenonaijkccialgfaeipkhfhnnpfmd" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/mondary-new-tab.png');">
                 <div class="category-badge chrome">Chrome</div>
             </div>
             <div class="card-content">
-                <div class="card-title">Extension Chrome • Tuile 02</div>
+                <div class="card-title">Mondary New Tab</div>
             </div>
-        </div>
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500');">
-                <div class="category-badge vscode">VS Code</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Extension VS Code • Tuile 03</div>
-            </div>
-        </div>
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1550439062-609e1531270e?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">App macOS • Tuile 04</div>
-            </div>
-        </div>
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Script Shell • Tuile 05</div>
-            </div>
-        </div>
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500');">
-                <div class="category-badge website">Website</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Concept site • Tuile 06</div>
-            </div>
-        </div>
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500');">
+        </a>
+        <a class="card" data-category="chrome" href="https://chromewebstore.google.com/detail/simplegmail/kijhhekofbbmdgnheepmjcenehmgepgl" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/simplegmail.png');">
                 <div class="category-badge chrome">Chrome</div>
             </div>
             <div class="card-content">
-                <div class="card-title">Extension Chrome • Tuile 07</div>
+                <div class="card-title">SimpleGmail</div>
             </div>
-        </div>
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500');">
-                <div class="category-badge vscode">VS Code</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Extension VS Code • Tuile 08</div>
-            </div>
-        </div>
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1550439062-609e1531270e?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">App macOS • Tuile 09</div>
-            </div>
-        </div>
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Script Shell • Tuile 10</div>
-            </div>
-        </div>
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500');">
-                <div class="category-badge website">Website</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Concept site • Tuile 11</div>
-            </div>
-        </div>
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500');">
-                <div class="category-badge chrome">Chrome</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Extension Chrome • Tuile 12</div>
-            </div>
-        </div>
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500');">
-                <div class="category-badge vscode">VS Code</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Extension VS Code • Tuile 13</div>
-            </div>
-        </div>
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1550439062-609e1531270e?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">App macOS • Tuile 14</div>
-            </div>
-        </div>
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Script Shell • Tuile 15</div>
-            </div>
-        </div>
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500');">
-                <div class="category-badge website">Website</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Concept site • Tuile 16</div>
-            </div>
-        </div>
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500');">
-                <div class="category-badge chrome">Chrome</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Extension Chrome • Tuile 17</div>
-            </div>
-        </div>
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500');">
-                <div class="category-badge vscode">VS Code</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Extension VS Code • Tuile 18</div>
-            </div>
-        </div>
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1550439062-609e1531270e?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">App macOS • Tuile 19</div>
-            </div>
-        </div>
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Script Shell • Tuile 20</div>
-            </div>
-        </div>
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500');">
-                <div class="category-badge website">Website</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Concept site • Tuile 21</div>
-            </div>
-        </div>
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500');">
-                <div class="category-badge chrome">Chrome</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Extension Chrome • Tuile 22</div>
-            </div>
-        </div>
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500');">
-                <div class="category-badge vscode">VS Code</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Extension VS Code • Tuile 23</div>
-            </div>
-        </div>
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1550439062-609e1531270e?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">App macOS • Tuile 24</div>
-            </div>
-        </div>
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Script Shell • Tuile 25</div>
-            </div>
-        </div>
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500');">
-                <div class="category-badge website">Website</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Concept site • Tuile 26</div>
-            </div>
-        </div>
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500');">
-                <div class="category-badge chrome">Chrome</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Extension Chrome • Tuile 27</div>
-            </div>
-        </div>
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500');">
-                <div class="category-badge vscode">VS Code</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Extension VS Code • Tuile 28</div>
-            </div>
-        </div>
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1550439062-609e1531270e?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">App macOS • Tuile 29</div>
-            </div>
-        </div>
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Script Shell • Tuile 30</div>
-            </div>
-        </div>
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500');">
-                <div class="category-badge website">Website</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Concept site • Tuile 31</div>
-            </div>
-        </div>
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500');">
-                <div class="category-badge chrome">Chrome</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Extension Chrome • Tuile 32</div>
-            </div>
-        </div>
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500');">
-                <div class="category-badge vscode">VS Code</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Extension VS Code • Tuile 33</div>
-            </div>
-        </div>
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1550439062-609e1531270e?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">App macOS • Tuile 34</div>
-            </div>
-        </div>
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Script Shell • Tuile 35</div>
-            </div>
-        </div>
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500');">
-                <div class="category-badge website">Website</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Concept site • Tuile 36</div>
-            </div>
-        </div>
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500');">
-                <div class="category-badge chrome">Chrome</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Extension Chrome • Tuile 37</div>
-            </div>
-        </div>
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500');">
-                <div class="category-badge vscode">VS Code</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Extension VS Code • Tuile 38</div>
-            </div>
-        </div>
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1550439062-609e1531270e?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">App macOS • Tuile 39</div>
-            </div>
-        </div>
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Script Shell • Tuile 40</div>
-            </div>
-        </div>
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500');">
-                <div class="category-badge website">Website</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Concept site • Tuile 41</div>
-            </div>
-        </div>
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500');">
-                <div class="category-badge chrome">Chrome</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Extension Chrome • Tuile 42</div>
-            </div>
-        </div>
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500');">
-                <div class="category-badge vscode">VS Code</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Extension VS Code • Tuile 43</div>
-            </div>
-        </div>
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1550439062-609e1531270e?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">App macOS • Tuile 44</div>
-            </div>
-        </div>
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Script Shell • Tuile 45</div>
-            </div>
-        </div>
-        <div class="card" data-category="website">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500');">
-                <div class="category-badge website">Website</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Concept site • Tuile 46</div>
-            </div>
-        </div>
-        <div class="card" data-category="chrome">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500');">
-                <div class="category-badge chrome">Chrome</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Extension Chrome • Tuile 47</div>
-            </div>
-        </div>
-        <div class="card" data-category="vscode">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500');">
-                <div class="category-badge vscode">VS Code</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Extension VS Code • Tuile 48</div>
-            </div>
-        </div>
-        <div class="card" data-category="macos">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1550439062-609e1531270e?w=500');">
-                <div class="category-badge macos">macOS</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">App macOS • Tuile 49</div>
-            </div>
-        </div>
-        <div class="card" data-category="shell">
-            <div class="card-img"
-                style="background-image: url('https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=500');">
-                <div class="category-badge shell">Shell</div>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Script Shell • Tuile 50</div>
-            </div>
-        </div>
+        </a>
     </div>
 
     <div class="scroll-hint">Scrollez pour animer</div>
@@ -1768,9 +1010,6 @@
                 clearCardStyles();
             }
         }
-
-        // Click to toggle fan <-> grid (like archives/anim.html)
-        document.body.addEventListener('click', toggleScroll);
 
         window.addEventListener('scroll', () => {
             if (window.scrollY > 40) {
