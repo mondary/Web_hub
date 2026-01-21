@@ -237,6 +237,13 @@
             gap: 8px;
             margin-bottom: 40px;
             flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(6px);
+            padding: 12px 16px;
+            border-radius: 0;
         }
 
         .filter-pill {
@@ -295,7 +302,7 @@
 
         .rotate-control {
             position: absolute;
-            top: -42px;
+            top: 8px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -639,12 +646,13 @@
             <a href="https://cmondary.tumblr.com/" target="_blank" rel="noopener noreferrer" class="social-bubble tumblr" title="Tumblr"><i class="fab fa-tumblr"></i></a>
             <a href="https://mondary.design/feed/" target="_blank" rel="noopener noreferrer" class="social-bubble rss" title="RSS"><i class="fas fa-rss"></i></a>
         </div>
-        <div class="filters-container">
-            <div class="filter-pill active" data-filter="all">Tous</div>
-            <div class="filter-pill" data-filter="website">Sites</div>
-            <div class="filter-pill" data-filter="vscode">Extensions VS Code</div>
-            <div class="filter-pill" data-filter="chrome">Extensions Chrome</div>
-        </div>
+    </div>
+
+    <div class="filters-container">
+        <div class="filter-pill active" data-filter="all">Tous</div>
+        <div class="filter-pill" data-filter="website">Sites</div>
+        <div class="filter-pill" data-filter="vscode">Extensions VS Code</div>
+        <div class="filter-pill" data-filter="chrome">Extensions Chrome</div>
     </div>
 
     <div class="main-wrapper" id="cards-container">
@@ -812,6 +820,24 @@
         const container = document.getElementById('cards-container');
         let currentFilter = 'all';
 
+        function updateFilterCounts() {
+            const counts = {};
+            cards.forEach(card => {
+                const category = card.dataset.category;
+                counts[category] = (counts[category] || 0) + 1;
+            });
+            const total = cards.length;
+            pills.forEach(pill => {
+                if (!pill.dataset.label) {
+                    pill.dataset.label = pill.textContent.trim();
+                }
+                const label = pill.dataset.label;
+                const key = pill.dataset.filter;
+                const count = key === 'all' ? total : (counts[key] || 0);
+                pill.textContent = `${label} (${count})`;
+            });
+        }
+
         // Keep fan anchored to bottom of viewport without changing positioning mode
         function updateFanBase() {
             const firstCard = cards[0];
@@ -887,6 +913,8 @@
                 filterCards(pill.dataset.filter);
             });
         });
+
+        updateFilterCounts();
 
         // Wrap card content so controls can sit outside without clipping
         cards.forEach((card) => {
