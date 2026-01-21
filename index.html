@@ -713,12 +713,12 @@
                 <div class="card-title">mondary.design/pk/pkchangedetection</div>
             </div>
         </a>
-        <a class="card" data-category="website" href="https://mondary.design/pk/pkcrop/" target="_0" rel="noopener noreferrer">
-            <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-crop.png');">
+        <a class="card" data-category="website" href="https://mondary.design/pk/pkimagetools/" target="_0" rel="noopener noreferrer">
+            <div class="card-img" style="background-image: url('assets/thumbnails/mondary.design-pk-imagetools.png');">
                 <div class="category-icon website"><i class="fas fa-globe"></i></div>
             </div>
             <div class="card-content">
-                <div class="card-title">mondary.design/pk/pkcrop</div>
+                <div class="card-title">mondary.design/pk/pkimagetools</div>
             </div>
         </a>
         <a class="card" data-category="website" href="https://mondary.design/pk/pkcuisto/" target="_0" rel="noopener noreferrer">
@@ -893,9 +893,10 @@
                     card.classList.add('hidden');
                 }
             });
-            if (document.body.classList.contains('scrolled')) {
-                setTimeout(layoutCards, 50);
+            if (!document.body.classList.contains('scrolled')) {
+                document.body.classList.add('scrolled');
             }
+            setTimeout(layoutCards, 50);
         }
 
         pills.forEach(pill => {
